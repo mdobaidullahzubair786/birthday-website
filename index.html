@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Happy Birthday, Nargis 🕯️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Background music + mute toggle, persistent across every screen -->
+<audio id="bgMusic" src="media/birthday.mp3" loop preload="auto"></audio>
+<audio id="sfxMeme" src="media/meme.mp3" preload="auto"></audio>
+<audio id="sfxSurprise" src="media/surprise.mp3" preload="auto"></audio>
+<audio id="sfxFirecrackers" src="media/firecrackers.mp3" preload="auto"></audio>
+<button class="mute-btn" id="muteBtn" type="button" aria-label="Mute music">🔊</button>
+
+<!-- Ambient background layer: reused across the whole site -->
+<div class="ambient" aria-hidden="true">
+  <div class="vignette"></div>
+  <div class="glow"></div>
+  <div class="particles" id="particles"></div>
+</div>
+
+<!-- ===================== SCREEN 1: WELCOME ===================== -->
+<section class="screen active" id="screen-welcome">
+  <p class="eyebrow">a little celebration for</p>
+  <h1 class="title">Happy Birthday</h1>
+  <p class="name">Nargis Parween</p>
+
+  <button class="seal" id="enterBtn" type="button">
+    <span class="seal-ring"></span>
+    <span class="seal-label">Enter the<br>Celebration</span>
+  </button>
+
+  <p class="hint">tap the seal to begin</p>
+</section>
+
+<!-- ===================== SCREEN 2: ENVELOPE ===================== -->
+<section class="screen" id="screen-envelope">
+  <p class="eyebrow">a little something for you</p>
+  <h2 class="title-sm">Open the Envelope</h2>
+
+  <div class="envelope-stage">
+    <div class="envelope" id="envelope">
+      <div class="envelope-paper" id="envelopePaper"></div>
+      <div class="envelope-pocket"></div>
+      <div class="envelope-flap" id="envelopeFlap"></div>
+      <button class="seal seal-sm" id="openEnvelopeBtn" type="button" aria-label="Open envelope">
+        <span class="seal-ring"></span>
+        <span class="seal-label">Open</span>
+      </button>
+    </div>
+  </div>
+
+  <p class="hint">tap the seal to open</p>
+</section>
+
+<!-- ===================== SCREEN 3: LETTER ===================== -->
+<section class="screen" id="screen-letter">
+  <div class="letter-card">
+    <p class="letter-greeting">My dearest Nargis,</p>
+    <p class="letter-body" id="letterBody">Happy Birthday to someone who means more to me than words could ever truly explain. On your special day, I hope life gives you every reason to smile, every dream you wish to achieve, and every happiness your heart deserves. May you always be surrounded by people who appreciate your presence, understand your heart, and never make you question your worth.
+
+Some people enter our lives for a moment, some for a chapter, but a few leave behind memories that remain forever. You are one of those people for me. Whatever the future holds, I will always be grateful for the moments, smiles, conversations, and memories we shared.
+
+I hope this new year of your life brings you closer to everything you desire. May your tears become smiles, your worries become peace, and your dreams become reality.
+
+Keep shining, keep smiling, and never forget how wonderfully special you are. Happy Birthday, always.❤️</p>
+    <p class="letter-sign">— with all my love</p>
+    <button class="btn-next" id="letterNextBtn" type="button">Next →</button>
+  </div>
+</section>
+
+<!-- ===================== SCREEN 4: SURPRISE BOX ===================== -->
+<section class="screen" id="screen-surprise">
+  <div class="surprise-header" id="surpriseHeader">
+    <p class="eyebrow">one more thing</p>
+    <h2 class="title-sm" id="surpriseTitle">Pull the Ribbon to Open</h2>
+  </div>
+
+  <div class="box-stage">
+    <div class="gift-box" id="giftBox">
+      <div class="reveal-line" id="revealLine">This is for you 🎁</div>
+      <div class="teddy" id="teddy">🧸</div>
+      <div class="box-body"></div>
+      <div class="box-lid" id="boxLid">
+        <svg class="bow-svg" viewBox="0 0 200 150" aria-hidden="true">
+          <defs>
+            <linearGradient id="bowGrad" x1="10%" y1="0%" x2="90%" y2="100%">
+              <stop offset="0%" stop-color="#f3e0ab"/>
+              <stop offset="45%" stop-color="#c9a15a"/>
+              <stop offset="100%" stop-color="#8a6a35"/>
+            </linearGradient>
+          </defs>
+          <g fill="url(#bowGrad)" stroke="#5c4419" stroke-width="1.5" stroke-linejoin="round">
+            <ellipse cx="100" cy="42" rx="30" ry="46" transform="rotate(-58 100 80)"/>
+            <ellipse cx="100" cy="42" rx="30" ry="46" transform="rotate(-35 100 80)"/>
+            <ellipse cx="100" cy="42" rx="30" ry="46" transform="rotate(-12 100 80)"/>
+            <ellipse cx="100" cy="42" rx="30" ry="46" transform="rotate(12 100 80)"/>
+            <ellipse cx="100" cy="42" rx="30" ry="46" transform="rotate(35 100 80)"/>
+            <ellipse cx="100" cy="42" rx="30" ry="46" transform="rotate(58 100 80)"/>
+            <path d="M91 94 Q78 122 68 145 Q84 132 96 108 Z"/>
+            <path d="M109 94 Q122 122 132 145 Q116 132 104 108 Z"/>
+            <circle cx="100" cy="80" r="18" fill="#eed7a0" stroke="#5c4419" stroke-width="1.5"/>
+          </g>
+        </svg>
+      </div>
+      <div class="ribbon-h" id="ribbonH"></div>
+      <div class="ribbon-v" id="ribbonV"></div>
+    </div>
+    <div class="confetti-layer" id="confettiLayer"></div>
+  </div>
+
+  <p class="hint" id="boxHint">pull the ribbon ↕</p>
+
+  <div class="surprise-reveal" id="surpriseReveal">
+    <p class="surprise-msg">Below is a surprise for you 👇</p>
+    <button class="btn-next" id="findSurpriseBtn" type="button">Find what the surprise is</button>
+  </div>
+</section>
+
+<!-- ===================== SCREEN 5: SECOND GIFT BOX ===================== -->
+<section class="screen" id="screen-open-box">
+  <p class="eyebrow">one more surprise</p>
+  <h2 class="title-sm">A Gift Awaits</h2>
+
+  <div class="box2-stage">
+    <div class="gift-box2" id="giftBox2">
+      <div class="box2-body"></div>
+      <div class="box2-ribbon-h"></div>
+      <div class="box2-ribbon-v"></div>
+      <div class="box2-lid">
+        <svg class="bow-svg" viewBox="0 0 200 150" aria-hidden="true">
+          <defs>
+            <linearGradient id="bowGrad2" x1="10%" y1="0%" x2="90%" y2="100%">
+              <stop offset="0%" stop-color="#f7dede"/>
+              <stop offset="45%" stop-color="#d9a5a0"/>
+              <stop offset="100%" stop-color="#9c5c56"/>
+            </linearGradient>
+          </defs>
+          <g fill="url(#bowGrad2)" stroke="#5c2b26" stroke-width="1.5" stroke-linejoin="round">
+            <ellipse cx="100" cy="42" rx="30" ry="46" transform="rotate(-58 100 80)"/>
+            <ellipse cx="100" cy="42" rx="30" ry="46" transform="rotate(-35 100 80)"/>
+            <ellipse cx="100" cy="42" rx="30" ry="46" transform="rotate(-12 100 80)"/>
+            <ellipse cx="100" cy="42" rx="30" ry="46" transform="rotate(12 100 80)"/>
+            <ellipse cx="100" cy="42" rx="30" ry="46" transform="rotate(35 100 80)"/>
+            <ellipse cx="100" cy="42" rx="30" ry="46" transform="rotate(58 100 80)"/>
+            <path d="M91 94 Q78 122 68 145 Q84 132 96 108 Z"/>
+            <path d="M109 94 Q122 122 132 145 Q116 132 104 108 Z"/>
+            <circle cx="100" cy="80" r="18" fill="#f0c9c5" stroke="#5c2b26" stroke-width="1.5"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-next" id="openBox2Btn" type="button">Open the Box</button>
+</section>
+
+<!-- ===================== SCREEN 6: CAKE ===================== -->
+<section class="screen" id="screen-cake">
+  <div class="cake-header">
+    <h2 class="cake-title">Happy Birthday</h2>
+    <p class="wish-line">make a wish</p>
+  </div>
+
+  <div class="cake-stage">
+    <div class="cake" id="cake">
+      <div class="candles">
+        <div class="candle">
+          <span class="flame" id="flame1"></span>
+          <span class="candle-num candle-num-1">1</span>
+        </div>
+        <div class="candle">
+          <span class="flame" id="flame2"></span>
+          <span class="candle-num">8</span>
+        </div>
+      </div>
+      <div class="cake-top">
+        <div class="berries berries-top">
+          <span>🍓</span><span>🫐</span><span>🍓</span><span>🫐</span>
+        </div>
+        <p class="cake-name cake-name-top">Nargis</p>
+      </div>
+      <div class="cake-bottom">
+        <div class="berries berries-bottom">
+          <span class="berry-cluster">🍓🫐🍓</span>
+          <span class="berry-cluster">🍓🫐🍓</span>
+        </div>
+        <p class="cake-name cake-name-bottom">Parween</p>
+      </div>
+      <div class="plate"></div>
+      <div class="cake-stem"></div>
+    </div>
+  </div>
+
+  <button class="btn-next btn-blow" id="blowBtn" type="button">Blow Out the Candles 🎂</button>
+
+  <div class="cake-reveal" id="cakeReveal">
+    <p class="surprise-msg">Welcome to the 18th club! 🎉</p>
+    <button class="btn-next" id="cakeNextBtn" type="button">Next →</button>
+  </div>
+
+  <div class="cake-fx" id="cakeFx" aria-hidden="true"></div>
+</section>
+
+<!-- ===================== SCREEN 7: VIDEO ===================== -->
+<section class="screen" id="screen-video">
+  <p class="eyebrow">a little video</p>
+  <h2 class="title-sm">Made With Love</h2>
+
+  <div class="video-card">
+    <video class="video-player" id="birthdayVideo" controls preload="metadata">
+      <source src="media/your-video.mp4" type="video/mp4">
+      Your browser doesn't support embedded video.
+    </video>
+    <a class="btn-next video-download" id="videoDownload" href="media/your-video.mp4" download>Download Video ⬇</a>
+  </div>
+
+  <p class="hint">tap play above, or download to keep it forever</p>
+
+  <button class="btn-next" id="videoNextBtn" type="button">Find What's Next →</button>
+</section>
+
+<!-- ===================== SCREEN 8: GAMES HUB ===================== -->
+<section class="screen" id="screen-games-hub">
+  <p class="eyebrow">a little fun</p>
+  <h2 class="title-sm">The Games Hub</h2>
+  <p class="sub games-sub">Pick a game to play</p>
+
+  <div class="games-grid">
+    <button class="game-card" id="cardSpin" type="button">
+      <span class="game-emoji">🎡</span>
+      <span class="game-name">Spin the Wheel</span>
+    </button>
+    <button class="game-card" id="cardChoose" type="button">
+      <span class="game-emoji">🃏</span>
+      <span class="game-name">Choose a Card</span>
+    </button>
+    <button class="game-card" id="cardBalloon" type="button">
+      <span class="game-emoji">🎈</span>
+      <span class="game-name">Balloon Pop</span>
+    </button>
+    <button class="game-card" id="cardQuiz" type="button">
+      <span class="game-emoji">💭</span>
+      <span class="game-name">How Well You<br>Know Me</span>
+    </button>
+  </div>
+
+  <button class="btn-next btn-finale" id="startEndingBtn" type="button">The Grand Finale ✨</button>
+</section>
+
+<!-- ===================== SCREEN 9: SPIN THE WHEEL ===================== -->
+<section class="screen" id="screen-spin">
+  <p class="eyebrow">dare time</p>
+  <h2 class="title-sm">Spin the Wheel</h2>
+
+  <div class="wheel-stage">
+    <div class="wheel-pointer"></div>
+    <div class="wheel" id="spinWheel">
+      <span class="wheel-emoji" style="left:60.5%;top:17.7%;">😂</span>
+      <span class="wheel-emoji" style="left:77.5%;top:30%;">🕺</span>
+      <span class="wheel-emoji" style="left:84%;top:50%;">🎤</span>
+      <span class="wheel-emoji" style="left:77.5%;top:70%;">🐸</span>
+      <span class="wheel-emoji" style="left:60.5%;top:82.3%;">🤳</span>
+      <span class="wheel-emoji" style="left:39.5%;top:82.3%;">🦆</span>
+      <span class="wheel-emoji" style="left:22.5%;top:70%;">🙈</span>
+      <span class="wheel-emoji" style="left:16%;top:50%;">🍭</span>
+      <span class="wheel-emoji" style="left:22.5%;top:30%;">🥳</span>
+      <span class="wheel-emoji" style="left:39.5%;top:17.7%;">🐒</span>
+    </div>
+    <div class="wheel-hub"></div>
+  </div>
+
+  <button class="btn-next" id="spinBtn" type="button">Spin the Wheel 🎡</button>
+
+  <div class="dare-reveal" id="dareReveal">
+    <p class="dare-label">Your dare:</p>
+    <p class="dare-text" id="dareText"></p>
+  </div>
+
+  <button class="btn-next btn-return" id="returnFromSpin" type="button">← Return to Games Hub</button>
+</section>
+
+<!-- ===================== SCREEN 10: CHOOSE A CARD (Truth game) ===================== -->
+<section class="screen" id="screen-game-card">
+  <p class="eyebrow">truth time</p>
+  <h2 class="title-sm">Choose a Card 🃏</h2>
+  <p class="sub card-sub" id="cardSub">Pick any card to reveal your question</p>
+
+  <!-- 20 face-down cards, filled in by script.js -->
+  <div class="card-grid" id="cardGrid"></div>
+
+  <!-- Revealed card + answer box, hidden until a card is picked -->
+  <div class="card-reveal-stage" id="cardRevealStage">
+    <div class="truth-card" id="truthCard">
+      <div class="truth-card-inner" id="truthCardInner">
+        <div class="truth-card-face truth-card-back">
+          <span class="truth-card-mark">?</span>
+          <span class="truth-card-num" id="truthCardNum"></span>
+        </div>
+        <div class="truth-card-face truth-card-front">
+          <p class="truth-card-eyebrow">Truth #<span id="truthCardFrontNum"></span></p>
+          <p class="truth-card-question" id="truthCardQuestion"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="truth-answer" id="truthAnswer">
+      <textarea id="truthAnswerInput" class="truth-answer-input" rows="3" placeholder="Type your answer here..."></textarea>
+      <button class="btn-next" id="submitAnswerBtn" type="button">Submit Answer</button>
+    </div>
+
+    <div class="truth-done" id="truthDone">
+      <p class="surprise-msg">Answer locked in ✨</p>
+      <button class="btn-next" id="anotherCardBtn" type="button">Pick Another Card</button>
+    </div>
+  </div>
+
+  <button class="btn-next btn-return" id="returnFromCard" type="button">← Return to Games Hub</button>
+</section>
+
+<!-- ===================== SCREEN 11: BALLOON POP ===================== -->
+<section class="screen" id="screen-game-balloon">
+  <p class="eyebrow">pop &amp; score</p>
+  <h2 class="title-sm">Balloon Pop 🎈</h2>
+  <p class="sub">Pop as many balloons as you can in 30 seconds!</p>
+
+  <div class="balloon-stats">
+    <div class="stat-box">
+      <span class="stat-label">Score</span>
+      <span class="stat-value" id="balloonScore">0</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-label">Time Left</span>
+      <span class="stat-value" id="balloonTime">30</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-label">High Score</span>
+      <span class="stat-value" id="balloonHighScoreDisplay">0</span>
+    </div>
+  </div>
+
+  <div class="balloon-stage" id="balloonStage">
+    <button class="btn-next balloon-start" id="balloonStartBtn">Start Popping 🎈</button>
+
+    <div class="balloon-result" id="balloonResult">
+      <p class="balloon-result-title" id="balloonResultTitle">Time's up!</p>
+      <p class="balloon-result-score">You scored <span id="balloonFinalScore">0</span> 🎈</p>
+      <button class="btn-next" id="balloonPlayAgainBtn">Play Again 🔁</button>
+    </div>
+  </div>
+
+  <div class="balloon-hint" id="balloonHint">
+    <p class="hint-label">🔒 Secret Hint Unlocked</p>
+    <p class="hint-text" id="balloonHintText">Hit the target score of 30 to unfold a secret hint....</p>
+  </div>
+
+  <button class="btn-next btn-return" id="returnFromBalloon">← Return to Games Hub</button>
+</section>
+
+<!-- ===================== SCREEN 12: HOW WELL YOU KNOW ME (QUIZ) ===================== -->
+<section class="screen" id="screen-game-quiz">
+  <p class="eyebrow">test time</p>
+  <h2 class="title-sm">How Well You Know Me</h2>
+  <p class="sub quiz-sub" id="quizSub">Answer correctly to keep going — one wrong answer sends you back to the start. </p>
+
+  <p class="quiz-progress" id="quizProgress">Question 1 of 17</p>
+
+  <div class="quiz-card" id="quizCard">
+    <p class="quiz-question" id="quizQuestion"></p>
+    <div class="quiz-options" id="quizOptions"></div>
+  </div>
+
+  <div class="quiz-unlock" id="quizUnlock">
+    <p class="surprise-msg">You know me perfectly! 🎉</p>
+    <button class="btn-next" id="unlockSecretBtn" type="button">Open the Secret Page 🔐</button>
+  </div>
+
+  <button class="btn-next btn-return" id="returnFromQuiz" type="button">← Return to Games Hub</button>
+</section>
+
+<!-- ===================== SCREEN 13: SECRET LOCKED PAGE ===================== -->
+<section class="screen" id="screen-secret-locked">
+  <p class="eyebrow">almost there</p>
+  <h2 class="title-sm">Enter the Password   </h2>
+  <p class="password-hint">
+    Hint: 40 digits...no spaces, all lowercase (see the hint under popping balloons game....)
+  </p>
+
+  <div class="password-card" id="passwordCard">
+    <input type="password" id="secretPasswordInput" class="password-input" placeholder="Enter password" autocomplete="off">
+    <button class="btn-next" id="secretUnlockBtn" type="button">Unlock 🔓</button>
+    <p class="password-error" id="passwordError">Incorrect password — try again.</p>
+  </div>
+
+  <div class="secret-content" id="secretContent">
+    <p class="secret-title">🔓 Unlocked</p>
+    <p class="secret-message" id="secretMessage">[Your secret message will go here — customize SECRET_MESSAGE in script.js]</p>
+    <a class="btn-next" id="secretDownloadBtn" type="button" download="secret-message.html">Download Secret Page ⬇</a>
+  </div>
+
+  <button class="btn-next btn-return" id="returnFromSecret" type="button">← Return to Games Hub</button>
+</section>
+
+<!-- ===================== ENDING PART 1: ONE LAST WISH ===================== -->
+<section class="screen" id="screen-ending-candle">
+  <div class="ending-fade" id="endingHeader">
+    <p class="eyebrow">one last time</p>
+    <h2 class="title-sm">One Last Wish</h2>
+  </div>
+
+  <div class="cake-stage ending-fade" id="endingCakeStage">
+    <div class="cake">
+      <div class="candles">
+        <div class="candle">
+          <span class="flame" id="endFlame1"></span>
+          <span class="candle-num candle-num-1">1</span>
+        </div>
+        <div class="candle">
+          <span class="flame" id="endFlame2"></span>
+          <span class="candle-num">8</span>
+        </div>
+      </div>
+      <div class="cake-top">
+        <div class="berries berries-top">
+          <span>🍓</span><span>🫐</span><span>🍓</span><span>🫐</span>
+        </div>
+        <p class="cake-name cake-name-top">Nargis</p>
+      </div>
+      <div class="cake-bottom">
+        <div class="berries berries-bottom">
+          <span class="berry-cluster">🍓🫐🍓</span>
+          <span class="berry-cluster">🍓🫐🍓</span>
+        </div>
+        <p class="cake-name cake-name-bottom">Parween</p>
+      </div>
+      <div class="plate"></div>
+      <div class="cake-stem"></div>
+    </div>
+  </div>
+
+  <button class="btn-next ending-fade" id="finalWishBtn" type="button">Make a Wish ✨</button>
+
+  <div class="wish-reveal" id="wishReveal">
+    <p class="wish-reveal-line" id="wishLine1">I hope your wish comes true.</p>
+    <p class="wish-reveal-line wish-reveal-line-2" id="wishLine2">Happy Birthday ❤️</p>
+  </div>
+</section>
+
+<!-- ===================== ENDING PART 2: BEFORE YOU CLOSE THIS ===================== -->
+<section class="screen" id="screen-goodbye-intro">
+  <p class="goodbye-line" id="goodbyeLine1">Before you close this...</p>
+  <p class="goodbye-line" id="goodbyeLine2">There was one last thing I wanted to leave here.</p>
+</section>
+
+<!-- ===================== ENDING PART 3: THE FINAL LETTER ===================== -->
+<section class="screen" id="screen-goodbye-letter">
+  <div class="letter-card">
+    <p class="letter-greeting">Nargis,</p>
+    <p class="letter-body" id="finalLetterBody">Before You Go… ❤️
+And now, I think this is where my little journey comes to an end.
+I made this website not because I wanted anything from you, but because I wanted to give you something that came from my heart. I hope you liked it. It's my first time making this and also the video. I have never worked upon such things. Every word, every picture, every little detail here carries a piece of the memories I’ve shared with you and the feelings I could never properly put into words. I like you. I know you do not. But you don’t have to feel the same, and I won’t love you any less for it. I just think you’re too beautiful of a soul to leave these words unsaid. I am sorry that I couldn't fulfil what you asked me once for. I tried but I couldn't find him. You once asked me if i could arrange a conversation with him and I failed.  Maybe God brought you into my life for a reason, maybe only for a season. I don’t know what tomorrow holds. So, before it arrives, I just wanted you to know you became someone my heart is grateful to have met. You know we thank some people for merely living at the same time as we do. I thank you for the fact that I met you, that I will remember you for all my life. 
+Today, on your birthday, I only wish one thing for you—that life is always kind to you. May you find happiness in places you never expected, may your dreams come true, and may you always have someone beside you who makes you feel loved, valued, and safe.
+Maybe this is goodbye. Maybe our paths will slowly become different. And perhaps, someday, I’ll become nothing more than a beautiful memory from a chapter of your life.
+But I hope you remember this:
+There was once someone who genuinely wished for nothing but your happiness.
+Thank you for being a part of my life. Thank you for the memories, the smiles, and even the moments that hurt.
+I’ll carry them quietly, and I’ll let you go with a smile.
+
+Happy Birthday. ❤️
+
+May you always be happy.
+
+And wherever life takes you…
+
+I hope it takes you somewhere beautiful.
+
+Don't worry.! I can't leave you. Just think of me and You will always find me by your side. 
+
+Goodbye. 🌙
+</p>
+    <p class="letter-sign">— always</p>
+    <button class="btn-next" id="goodbyeLetterNextBtn" type="button">Next →</button>
+  </div>
+</section>
+
+<!-- ===================== ENDING PART 4: THANK YOU FOR BEING A CHAPTER ===================== -->
+<section class="screen" id="screen-goodbye-outro">
+  <p class="goodbye-line goodbye-line-multi" id="goodbyeLine3">No expectations.<br>No questions.<br>Just a memory.</p>
+  <p class="goodbye-line" id="goodbyeLine4">Thank you for being a chapter I'll always remember.</p>
+  <p class="goodbye-final" id="goodbyeFinal">Happy Birthday ❤️</p>
+</section>
+
+<!-- ===================== ENDING PART 5: MOVIE CREDITS ===================== -->
+<section class="screen screen-credits" id="screen-credits">
+  <div class="credits-viewport">
+    <div class="credits-roll" id="creditsRoll">
+      <p class="credits-end-title">THE END</p>
+      <div class="credits-spacer"></div>
+      <p class="credits-line">A little birthday project</p>
+      <p class="credits-line">Made with ❤️ by Obaidullah</p>
+      <p class="credits-line">For someone who deserves a beautiful birthday.</p>
+      <div class="credits-spacer-sm"></div>
+      <p class="credits-role"><span>Memories</span> — Nargis Parween</p>
+      <p class="credits-role"><span>Music</span> — Our memories</p>
+      <p class="credits-role"><span>Special thanks</span> — You</p>
+      <div class="credits-spacer-sm"></div>
+      <p class="credits-line credits-thanks">Thank you for watching.</p>
+    </div>
+  </div>
+  <p class="credits-tagline" id="creditsTagline">Until our next chapter…</p>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
